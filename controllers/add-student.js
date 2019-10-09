@@ -6,10 +6,14 @@ module.exports.addStudent = (req, res) => {
             name: req.body.name,
             age: req.body.age
         })
-        .then(res => {
-            res.redirct('/');
+        .then(data => {
+            console.log('it works');
+            res.redirect('/');
+        }).catch(err => {
+            console.log(err);
         });
+    }else {
+        res.render('add');
     }
     
-    res.render('add');
 }
