@@ -1,9 +1,21 @@
-<div>
-    <ul>
+<table class="table table-bordered table-hover">
+
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+        </tr>
+    </thead>
+
+    <tbody>
         {{#if students}}
         {{#each students}}
-        <li>{{name}} - {{age}}</li>
+        <tr>
+            <td>{{name}}</td>
+            <td>{{age}}</td>
+        </tr>
         {{/each}}
         {{/if}}
-    </ul>
-</div>
+    </tbody>
+
+</table>

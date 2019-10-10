@@ -7,7 +7,6 @@ module.exports.addStudent = (req, res) => {
             age: req.body.age
         })
         .then(data => {
-            console.log('it works');
             res.redirect('/');
         }).catch(err => {
             console.log(err);
@@ -15,5 +14,4 @@ module.exports.addStudent = (req, res) => {
     }else {
         res.render('add');
     }
-    
 }
