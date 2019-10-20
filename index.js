@@ -1,17 +1,28 @@
 var express = require('express');
-var cookieParser = require('cookie-parser');
+var session = require('express-session');
 var exphbs  = require('express-handlebars');
 var bodyParser = require('body-parser');
 var fs = require('fs');
 
 var app = express();
-app.use(cookieParser());
+var sess = {
+    secret: 'keyboard cat',
+    resave: true,
+    saveUninitialized: true,
+    cookie: {}
+};
+
+if (app.get('env') === 'production') {
+    app.set('trust proxy', 1) // trust first proxy
+    sess.cookie.secure = true // serve secure cookies
+};
+app.use(session(sess));
 app.use(bodyParser.urlencoded({ extended: false }))
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 
 const protect = (req, res, next) => {
-    if (!req.cookies['user']) {
+    if (!req.session.user) {
         res.redirect('/login');
     } else {
         next();
@@ -31,7 +42,7 @@ app.post('/login', (req, res) => {
         const users = JSON.parse(fs.readFileSync('data.json', 'utf-8'));
         users.forEach(user => {
             if (user.login == req.body.login && user.password == req.body.password) {
-                res.cookie('user', user.login);
+                req.session.user = user.login;
                 res.redirect('/');
             }
             else {
@@ -45,7 +56,7 @@ app.post('/login', (req, res) => {
 });
 
 app.get('/logout', (req, res) => {
-    res.clearCookie('user');
+    req.session = null;
     res.redirect('/login');
 });
 
