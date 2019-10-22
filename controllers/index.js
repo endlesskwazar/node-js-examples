@@ -1,0 +1,9 @@
+const {registerController} = require('./register-controller');
+const {homeController} = require('./home-controller');
+const {loginController} = require('./login-controller');
+const {logoutController} = require('./logout-controller');
+
+exports.registerController = registerController;
+exports.homeController = homeController;
+exports.loginController = loginController;
+exports.logoutController = logoutController;
