@@ -11,7 +11,8 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
   Collection.associate = function(models) {
-    // associations can be defined here
+    this.belongsTo(models.User, {foreignKey: 'userId'});
+    this.hasMany(models.Book, {foreignKey: 'collectionId'});
   };
   return Collection;
 };
