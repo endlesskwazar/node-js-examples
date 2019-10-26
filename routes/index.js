@@ -5,6 +5,7 @@ const {loginController} = require('../controllers');
 const {logoutController} = require('../controllers');
 const {protect} = require('../middlewares/protect');
 const {collectionController} = require('../controllers');
+const {bookController} = require('../controllers');
 
 router = express.Router();
 
@@ -25,5 +26,10 @@ router.post('/collections/create', protect, collectionController.post);
 router.delete('/collections/:id', protect, collectionController.remove);
 
 // Books
+router.get('/books', protect, bookController.getAll);
+router.get('/books/create', protect, bookController.getForm);
+router.post('/books/create', protect, bookController.post);
+router.delete('/books/:id', protect, bookController.remove);
+router.get('/books/update/:id', protect, bookController.getUpdate);
 
 exports.routes = router;

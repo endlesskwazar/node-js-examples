@@ -1,0 +1,41 @@
+<h1>Update book</h1>
+
+<hr>
+
+<div class="row">
+    <div class="col-md-6 mx-auto">
+
+        {{#if err}}
+            {{#each err.errors}}
+                <div class="alert alert-danger" role="alert">{{message}}</div>
+            {{/each}}
+        {{/if}}
+
+        <form method="POST">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" id="title" placeholder="Title" name="title" value="{{book.title}}">
+            </div>
+            <div class="form-group">
+                <label for="collection">Collection</label>
+                <select name="collection" id="collection" class="form-control">
+                    {{#each collections}}
+                    <option value="{{id}}" {{#eq ../book.Collection.id id}} selected="selected" {{/eq}}>{{title}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="authors">Authors</label>
+                <input type="text" class="form-control" id="authors" placeholder="Authors" name="authors" value="{{book.authors}}">
+            </div>
+            <div class="form-group">
+                <label for="review">Review</label>
+                <textarea type="text" class="form-control" id="review" placeholder="Review" name="review">
+                    {{book.review}}
+                </textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+</div>

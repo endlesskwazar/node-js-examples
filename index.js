@@ -4,6 +4,7 @@ const exphbs  = require('express-handlebars');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const methodOverride = require('method-override');
+const helpers = require('handlebars-helpers')();
 
 const {routes} = require('./routes');
 
@@ -26,7 +27,7 @@ app.use(session(sess));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
-app.engine('handlebars', exphbs());
+app.engine('handlebars', exphbs({defaultLayout: 'main', extname: '.handlebars', helpers: {helpers}}));
 app.set('view engine', 'handlebars');
 app.use(routes);
 

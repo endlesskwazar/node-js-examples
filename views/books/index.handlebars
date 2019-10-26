@@ -1,0 +1,51 @@
+<h1>Books</h1>
+
+<hr>
+
+{{#if books}}
+
+<a href="/books/create" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span>Add new</a>
+
+<ul class="list-group">
+
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Collection</th>
+                <th>Authors</th>
+                <th>Review</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each books}}
+            {{#each data}}
+            <tr>
+                <td>{{title}}</td>
+                <td>{{../collection}}</td>
+                <td>{{authors}}</td>
+                <td>{{review}}</td>
+                <td>
+                    <span>
+                       
+                        <a href="/books/update/{{id}}" class="btn btn-warning">Update</a>
+                         <form method="POST" action="/books/{{id}}?_method=DELETE">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-danger">DELETE</button>
+                        </form>
+                    </span>
+                </td>
+            </tr>
+            {{/each}}
+            {{/each}}
+        </tbody>
+    </table>
+
+</ul>
+
+{{else}}
+
+<h2>There are no books. <a href="/books/create">Create one now</a></h2>
+
+{{/if}}
