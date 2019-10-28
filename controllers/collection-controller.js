@@ -11,7 +11,7 @@ const getAll = (req, res) => {
 };
 
 const getForm = (req, res) => {
-    res.render('collections/create');
+    res.render('collections/create', {csrfToken: req.csrfToken()});
 }
 
 const post = (req, res) => {

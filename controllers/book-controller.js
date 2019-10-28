@@ -27,7 +27,7 @@ const getAll = (req, res) => {
 const getForm = (req, res) => {
     Collection.findAll({where: {userId:req.userId}})
     .then(collections => {
-        res.render('books/create', {collections});
+        res.render('books/create', {collections, csrfToken: req.csrfToken()});
     })
     .catch(err => {
         console.log(err);
