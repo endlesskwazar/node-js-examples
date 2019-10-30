@@ -14,6 +14,7 @@ const sess = {
     secret: 'keyboard cat',
     resave: true,
     saveUninitialized: true,
+    name: 'my-session',
     cookie: {}
 };
 
@@ -32,3 +33,5 @@ app.set('view engine', 'handlebars');
 app.use(routes);
 
 app.listen(8080);
+
+exports.app = app; // Експортуємо для тестування

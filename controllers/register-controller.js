@@ -17,7 +17,6 @@ const post = (req, res) => {
         return user.save();
     })
     .then(() => {
-        console.log('user registered');
         req.session.userId = user.id
         res.redirect('/');
     })

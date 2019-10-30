@@ -24,14 +24,14 @@ router.get('/', protect, homeController.get);
 
 // Collections
 router.get('/collections', protect, collectionController.getAll);
-router.get('/collections/create', csrfProtection, protect, collectionController.getForm);
-router.post('/collections/create', csrfProtection, protect, collectionController.post);
+router.get('/collections/create', csrfProtection(), protect, collectionController.getForm);
+router.post('/collections/create', csrfProtection(), protect, collectionController.post);
 router.delete('/collections/:id', protect, collectionController.remove);
 
 // Books
 router.get('/books', protect, bookController.getAll);
-router.get('/books/create', csrfProtection, protect, bookController.getForm);
-router.post('/books/create', csrfProtection, bookController.post);
+router.get('/books/create', csrfProtection(), protect, bookController.getForm);
+router.post('/books/create', csrfProtection(), bookController.post);
 router.delete('/books/:id', protect, bookController.remove);
 router.get('/books/update/:id', protect, bookController.getUpdate);
 

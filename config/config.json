@@ -8,12 +8,10 @@
     "operatorsAliases": false
   },
   "test": {
-    "username": "root",
-    "password": null,
-    "database": "books",
-    "host": "127.0.0.1",
-    "dialect": "mariadb",
-    "operatorsAliases": false
+    "storage": "db_test.sqlite3",
+    "dialect": "sqlite",
+    "operatorsAliases": false,
+    "logging": false
   },
   "production": {
     "username": "root",
