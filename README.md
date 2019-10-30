@@ -15,3 +15,9 @@ npx sequelize-cli db:migrate
 ```bash
 npm run dev
 ```
+
+### Run tests
+
+```bash
+npm test
+```
