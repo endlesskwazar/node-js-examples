@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const methodOverride = require('method-override');
 const helpers = require('handlebars-helpers')();
+var FileStore = require('session-file-store')(session);
 
 const {routes} = require('./routes');
 
@@ -15,13 +16,8 @@ const sess = {
     resave: true,
     saveUninitialized: true,
     name: 'my-session',
-    cookie: {}
-};
-
-// configure secure if production
-if (app.get('env') === 'production') {
-    app.set('trust proxy', 1) // trust first proxy
-    sess.cookie.secure = true // serve secure cookies
+    store: new FileStore,
+    cookie: { maxAge: 3600000,secure: false, httpOnly: true }
 };
 
 app.use(session(sess));
@@ -32,6 +28,5 @@ app.engine('handlebars', exphbs({defaultLayout: 'main', extname: '.handlebars', 
 app.set('view engine', 'handlebars');
 app.use(routes);
 
-app.listen(8080);
-
+app.listen(process.env.PORT || 8080);
 exports.app = app; // Експортуємо для тестування
