@@ -1,14 +1,14 @@
 const express = require('express');
+const passport = require('passport');
 
-const {messageController} = require('../controllers');
+const {authController} = require('../controllers');
+const {userController} = require('../controllers');
 
 router = express.Router();
 
-router.get('/api/messages', messageController.getAll);
-router.get('/api/messages/:id', messageController.getOneByPk);
-router.post('/api/messages', messageController.post);
-router.put('/api/messages/:id', messageController.put);
-router.delete('/api/messages/:id', messageController.remove);
+router.post('/api/register', authController.register);
+router.post('/api/login', authController.login);
 
+router.get('/api/users', passport.authenticate('jwt', { session: false }), userController.getAll);
 
 exports.routes = router;

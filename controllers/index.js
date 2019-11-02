@@ -1,3 +1,5 @@
-const {messageController} = require('./message-controller');
+const {authController} = require('./auth-controller');
+const {userController} = require('./user-controller');
 
-exports.messageController = messageController;
+exports.authController = authController;
+exports.userController = userController;
