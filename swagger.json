@@ -1,0 +1,160 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "0.0.1",
+        "title": "Messages",
+        "description": "A sample API that uses a message as an example to demonstrate features in the swagger-2.0 specification",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "Oleksandr",
+            "email": "endlesskwazar@gmail.co"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "host": "localhost:8080",
+    "basePath": "/api",
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/messages": {
+            "get": {
+                "description": "Returns all messages",
+                "operationId": "getAll",
+                "responses": {
+                    "200": {
+                        "description": "message response",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Message"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Creates a new message",
+                "operationId": "post",
+                "parameters": [
+                    {
+                        "name": "message",
+                        "in": "body",
+                        "description": "message to add",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NewMessage"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "message response",
+                        "schema": {
+                            "$ref": "#/definitions/Message"
+                        }
+                    }
+                }
+            }
+        },
+        "/messages/{id}": {
+            "get": {
+                "description": "Returns a message based on id",
+                "operationId": "find message by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of message to fetch",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "message response",
+                        "schema": {
+                            "$ref": "#/definitions/Message"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "deletes a single message by id",
+                "operationId": "remove message",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of message to delete",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "message deleted"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Message": {
+            "type": "object",
+            "required": [
+                "body"
+            ],
+            "properties": {
+                "body": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "User": {
+                    "type": "object"
+                }
+            }
+        },
+        "User": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number"
+                },
+                "email": {
+                    "type": "string"
+                }
+            }
+        },
+        "NewMessage": {
+            "type": "object",
+            "required": [
+                "body"
+            ],
+            "properties": {
+                "body": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
