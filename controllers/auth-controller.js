@@ -25,9 +25,13 @@ const register = (req, res) => {
 
 const login = async (req, res) => {
     const {email, password} = req.body;
+
+    console.log(email);
+    console.log(password);
     
     if (!email || !password) {
         res.status(400).json({error: 'Provide credentionals'});
+        return;
     }
 
     let user = null;

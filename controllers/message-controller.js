@@ -46,7 +46,16 @@ const post = (req, res) => {
         return message.save()
     })
     .then(saved => {
-        res.status(201).json(message);
+        return  Message.findByPk(saved.id, {
+            attributes: ['id', 'body', 'createdAt', 'updatedAt'],
+            include: {
+                model: User,
+                attributes: ['id', 'email']
+            }
+        });
+    })
+    .then(result => {
+        res.status(201).json(result);
     })
     .catch(err => {
         res.status(400).json(err);

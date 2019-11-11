@@ -11,6 +11,7 @@ const swaggerDocument = require('./swagger.json');
 const app = express();
 
 
+app.use(express.static('static'));
 passport.use(strategy);
 app.use(passport.initialize());
 

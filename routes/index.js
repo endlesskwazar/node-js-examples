@@ -25,4 +25,16 @@ router.get('/api/messages/:id', passport.authenticate('jwt', { session: false })
 //delete api/messages/:id
 router.delete('/api/messages/:id', passport.authenticate('jwt', { session: false }), messageOwnerRequired, messageController.remove);
 
+//client
+
+router.get('/', (req, res) => {
+    const fs = require('fs');
+    fs.readFile('./static/index.html', 'utf-8', (err, data) => {
+        if (err) {
+            console.log(err);
+        }
+        res.send(data);
+    });
+});
+
 exports.routes = router;
