@@ -51,7 +51,7 @@ const login = async (req, res) => {
         if(compareRes) {
             let payload = { id: user.id };
             let token = jwt.sign(payload, jwtOptions.secretOrKey);
-            res.json({token});
+            res.json({token, userId:user.id});
         }
         else {
             res.status(400).json({error: 'Wrong credentioals'});

@@ -38,6 +38,18 @@ const prepare = () => {
     document.getElementById('add-message-form').onsubmit = addMessage;
 }
 
+const appendNewMessage = (msg) => {
+    const messageBody = document.getElementById('message-body');
+    messageBody.insertAdjacentHTML('afterbegin', `<div class="card mb-2 mt-2">
+    <div class="card-body">
+      <blockquote class="blockquote mb-0">
+        <p>${msg.body}</p>
+        <footer class="blockquote-footer"><cite title="Source Title">${msg.User.email}</cite><cite title="Source Title"> ${msg.createdAt}</cite></footer>
+      </blockquote>
+    </div>
+  </div>`);
+}
+
 const loadMessages = () => {
     getCall(`${apiUrl}messages`)
     .then(res => {
@@ -46,17 +58,8 @@ const loadMessages = () => {
         }
     })
     .then(data => {
-        const messageBody = document.getElementById('message-body');
-        messageBody.innerHTML = '';
         data.forEach(item => {
-            messageBody.insertAdjacentHTML('afterbegin', `<div class="card mb-2 mt-2">
-            <div class="card-body">
-              <blockquote class="blockquote mb-0">
-                <p>${item.body}</p>
-                <footer class="blockquote-footer"><cite title="Source Title">${item.User.email}</cite><cite title="Source Title"> ${item.createdAt}</cite></footer>
-              </blockquote>
-            </div>
-          </div>`)
+            appendNewMessage(item);
         });
     })
     .catch(err => {
@@ -75,15 +78,7 @@ const addMessage = (e) => {
         }
     })
     .then(data => {
-        const messageBody = document.getElementById('message-body');
-        messageBody.insertAdjacentHTML('afterbegin', `<div class="card mb-2 mt-2">
-            <div class="card-body">
-              <blockquote class="blockquote mb-0">
-                <p>${data.body}</p>
-                <footer class="blockquote-footer"><cite title="Source Title">${data.User.email}</cite><cite title="Source Title"> ${data.createdAt}</cite></footer>
-              </blockquote>
-            </div>
-          </div>`);
+        appendNewMessage(data);
     })
     .catch(err => {
         alert(err);
@@ -116,6 +111,7 @@ const logIn = (e) => {
     })
     .then(data => {
         localStorage.setItem('token', data.token);
+        localStorage.setItem('userId', data.userId);
         checkIfLoggedAndHideShowContainers();
     })
     .catch(err => {
@@ -132,6 +128,14 @@ const logOut = (e) => {
 const ready = () => {
     prepare();
     checkIfLoggedAndHideShowContainers();
+
+    const socket = io();
+
+    socket.on('new message', function(msg){
+        if (msg.sender != localStorage.getItem('userId')) {
+            appendNewMessage(msg.msg);
+        }
+    });
 }
 
 window.onload = ready;

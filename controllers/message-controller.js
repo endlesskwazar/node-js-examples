@@ -55,6 +55,8 @@ const post = (req, res) => {
         });
     })
     .then(result => {
+        const socketio = req.app.get('socketio');
+        socketio.emit('new message', { sender: req.user.id, msg:result });
         res.status(201).json(result);
     })
     .catch(err => {
